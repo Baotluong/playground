@@ -22,3 +22,5 @@ const printSteps = (levels) => {
 }
 
 printSteps(process.argv[2]);
+
+// No shit
