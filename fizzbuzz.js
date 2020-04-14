@@ -9,7 +9,7 @@ for(i = 1; i <= 50; i++) {
         console.log(i);
     }
 }
-
+// new
 // var x = true;
 // function returnsTrue() {
 //     return false;
