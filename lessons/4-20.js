@@ -24,5 +24,5 @@ console.log(arr2.unshift(-Infinity));
 console.log(arr);
 
 // MDN
-
+// DONT FORGET TO ADD, COMMIT, PUSH
 
