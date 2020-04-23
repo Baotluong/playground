@@ -24,7 +24,7 @@ class MaxBinaryHeap {
     while (true) {
       const parentIdx = Math.floor((idx - 1) / 2);
       const parent = this.data[parentIdx];
-      if (parent < value) {
+      if (parent && parent < value) {
         this.data[idx] = parent
         this.data[parentIdx] = value
         idx = parentIdx
@@ -38,7 +38,7 @@ class MaxBinaryHeap {
     const max = this.data[0]
     this.data[0] = this.data[this.data.length - 1]
     this.data.pop();
-    this.sinkDown2();
+    this.sinkDown();
     return max;
   }
 
