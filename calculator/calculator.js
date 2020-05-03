@@ -14,10 +14,9 @@ operations.set('+')
 operations.set('-')
 operations.set('*')
 operations.set('/')
+operations.set('^')
 operations.set('(')
 operations.set(')')
-operations.set('^')
-operations.set('.')
 
 const parseString = (string) => {
   const cleanString = string.replace(/ /g, '');
@@ -26,11 +25,15 @@ const parseString = (string) => {
   let end = 1;
   
   while (end <= cleanString.length) {
-    if (!isNaN(cleanString[start])) {
-      while (!isNaN(cleanString[end])) {
-        end++;
+    if (!isNaN(cleanString[start]) || cleanString[start] === '.') {
+      let decimalcount = 0;
+      if (cleanString[start] === '.') decimalcount++;
+      while (!isNaN(cleanString[end]) || cleanString[end] === '.') {
+        if (cleanString[end] === '.') decimalcount++;
+        if (decimalcount > 1) throw new Error('Too many "." in a single value');
+        end++;        
       }
-      resultArr.push(Number.parseInt(cleanString.substring(start, end)));
+      resultArr.push(Number.parseFloat(cleanString.substring(start, end)));
       start = end++;
     } else if (operations.has(cleanString[start])) {
       resultArr.push(cleanString[start])
@@ -49,14 +52,16 @@ const parseString = (string) => {
       !isNaN(resultArr[pos + 1])
     ) {
       resultArr.splice(pos, 2, -resultArr[pos + 1])
-    } else if (currentValue === '.') {
-      if (isNaN(resultArr[pos + 1])) throw new Error('Input has invalid "."');
-      if (pos === 0 || operations.has(resultArr[pos - 1])) {
-        resultArr.splice(pos, 2, Number.parseFloat('.' + resultArr[pos + 1]));
-      } else if (!isNaN(resultArr[pos - 1])) {
-        resultArr.splice(pos - 1, 3, Number.parseFloat(resultArr[pos - 1] + '.' + resultArr[pos + 1]));
-      }
-    } else if (currentValue === ')' && resultArr[pos + 1] === '(') {
+    } 
+    // else if (currentValue === '.') {
+    //   if (isNaN(resultArr[pos + 1])) throw new Error('Input has invalid "."');
+    //   if (pos === 0 || operations.has(resultArr[pos - 1])) {
+    //     resultArr.splice(pos, 2, Number.parseFloat('.' + resultArr[pos + 1]));
+    //   } else if (!isNaN(resultArr[pos - 1])) {
+    //     resultArr.splice(pos - 1, 3, Number.parseFloat(resultArr[pos - 1] + '.' + resultArr[pos + 1]));
+    //   }
+    // }
+    else if (currentValue === ')' && resultArr[pos + 1] === '(') {
       resultArr.splice(pos + 1, 0, '*');
     }
     pos++;
@@ -168,5 +173,5 @@ const calculate = (input) => {
 // calculate('(3 - 1)^2*(3)');
 // calculate('(^3 - 1)(3)'); // Arithmatic Error
 // calculate('(3 - 1)^2(3)'); // Arithmatic Error
-calculate('.5 / (.5 + 0.5)^2');
-calculate('(.5 / .5. + 10)^2'); // Invalid .
+calculate('.50 / (.5 +-1.5)^2');
+calculate('(.5 / 0.5.0 + 10)^2'); // Invalid .
