@@ -36,7 +36,7 @@ const parseString = (string) => {
       resultArr.push(cleanString[start])
       start++, end++;
     } else {
-      throw new Error('Input contains invalid characters.')
+      throw new Error('Input contains invalid characters')
     }
   }
 
@@ -49,6 +49,13 @@ const parseString = (string) => {
       !isNaN(resultArr[pos + 1])
     ) {
       resultArr.splice(pos, 2, -resultArr[pos + 1])
+    } else if (currentValue === '.') {
+      if (isNaN(resultArr[pos + 1])) throw new Error('Input has invalid "."');
+      if (pos === 0 || operations.has(resultArr[pos - 1])) {
+        resultArr.splice(pos, 2, Number.parseFloat('.' + resultArr[pos + 1]));
+      } else if (!isNaN(resultArr[pos - 1])) {
+        resultArr.splice(pos - 1, 3, Number.parseFloat(resultArr[pos - 1] + '.' + resultArr[pos + 1]));
+      }
     } else if (currentValue === ')' && resultArr[pos + 1] === '(') {
       resultArr.splice(pos + 1, 0, '*');
     }
@@ -59,7 +66,7 @@ const parseString = (string) => {
 }
 
 const calcSingleExpression = ({ x, y, operation }) => {
-  if (!x || !y || !operation) throw new Error('Input has an arithmatic error.')
+  if (!x || !y || !operation) throw new Error('Input has an arithmatic error')
   let result;
   if (operation === '^') {
     result = Math.pow(x, y);
@@ -72,7 +79,7 @@ const calcSingleExpression = ({ x, y, operation }) => {
   } else if (operation === '/') {
     result = y === 0 ? 'cannot divide by 0' : x / y;
   }
-  if (Number.isNaN(result)) throw new Error('Input has an arithmatic error.')
+  if (Number.isNaN(result)) throw new Error('Input has an arithmatic error')
   return result;
 }
 
@@ -104,7 +111,7 @@ const calcWholeExpression = (parsedArray) => {
   // Add/Subtract Loop
   while (parsedArray.length !== 1) {
     const nextAS = parsedArray.findIndex(ele => ele === '+' || ele === '-');
-    if (nextAS < 0) throw new Error('Input has an arithmatic error.');
+    if (nextAS < 0) throw new Error('Input has an arithmatic error');
     const expResult = calcSingleExpression({
       x: parsedArray[nextAS - 1],
       y: parsedArray[nextAS + 1],
@@ -128,11 +135,11 @@ const processParens = (array) => {
         }
       }
     }
-    if (close === null) throw new Error('Input has too many (')
+    if (close === null) throw new Error('Input has too many "("')
     console.log(array.join(' '))
     array.splice(open, close - open + 1, calcWholeExpression(array.slice(open + 1, close)))
   }
-  if (array.lastIndexOf(')') > 0) throw new Error('Input has too many )')
+  if (array.lastIndexOf(')') > 0) throw new Error('Input has too many ")"')
   console.log(array.join(' '))
   return calcWholeExpression(array);
 } 
@@ -152,12 +159,14 @@ const calculate = (input) => {
   console.log();
 }
 
-calculate('((-2 + 10) + 20 * -2 -2) / -2 + 30 + (-14--11)');
-calculate('((-2 + 10)) + 20 * -2 -2) / -2 + 30'); // Too many (
-calculate('(1+ 20)/3 * 2 - 16');
-calculate('(1+ 20/3 * 2 - 16'); // Not enough )
-calculate('1 + 20 / 2 * 5 - 2');
-calculate('1 + 20 / 2 *p 5 - 2'); // Wtf is a p
-calculate('(3 - 1)^2*(3)');
-calculate('(^3 - 1)(3)'); // Arithmatic Error
-calculate('(3 - 1)^2(3)'); // Arithmatic Error
+// calculate('((-2 + 10) + 20 * -2 -2) / -2 + 30 + (-14--11)');
+// calculate('((-2 + 10)) + 20 * -2 -2) / -2 + 30'); // Too many (
+// calculate('(1+ 20)/3 * 2 - 16');
+// calculate('(1+ 20/3 * 2 - 16'); // Not enough )
+// calculate('1 + 20 / 2 * 5 - 2');
+// calculate('1 + 20 / 2 *p 5 - 2'); // Wtf is a p
+// calculate('(3 - 1)^2*(3)');
+// calculate('(^3 - 1)(3)'); // Arithmatic Error
+// calculate('(3 - 1)^2(3)'); // Arithmatic Error
+calculate('.5 / (.5 + 0.5)^2');
+calculate('(.5 / .5. + 10)^2'); // Invalid .
