@@ -71,7 +71,8 @@ const parseString = (string) => {
 }
 
 const calcSingleExpression = ({ x, y, operation }) => {
-  if (!x || !y || !operation) throw new Error('Input has an arithmatic error')
+  // this is where we fucked up
+  if (!operation) throw new Error('Input has an arithmatic error')
   let result;
   if (operation === '^') {
     result = Math.pow(x, y);
@@ -173,5 +174,5 @@ const calculate = (input) => {
 // calculate('(3 - 1)^2*(3)');
 // calculate('(^3 - 1)(3)'); // Arithmatic Error
 // calculate('(3 - 1)^2(3)'); // Arithmatic Error
-calculate('.50 / (.5 +-1.5)^2');
-calculate('(.5 / 0.5.0 + 10)^2'); // Invalid .
+// calculate('.50 / (.5 +-1.5)^2');
+// calculate('(.5 / 0.5.0 + 10)^2'); // Invalid .
