@@ -1,7 +1,13 @@
+@import 'styles2.css';
+@import 'animation.css';
+
 *{
   box-sizing: border-box;
 }
 
 body{
   margin: 0;
+  --bg-color: grey;
+  background-color: var(--bg-color);
+  background-image: url();
 }

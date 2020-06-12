@@ -1,0 +1,46 @@
+.animate{
+  background-color: red;
+  height: 100px;
+  width: 100px;
+  position: relative;
+  animation-name: animation;
+  animation-duration: 5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+
+.container{
+  height:500px;
+}
+
+@keyframes animation {
+  0%{
+    background-color: red;
+    left: 0px;
+    top: 0px;
+  }
+  25%{
+    background-color: blue;
+    left: 300px;
+    top: 0px;
+    border-radius: 5% 50% 5% 5%;
+  }
+  50%{
+    background-color: purple;
+    left: 300px;
+    top: 300px;
+    border-radius: 5% 50% 50% 5%;
+  }
+  75%{
+    background-color: palevioletred;
+    left: 0px;
+    top: 300px;
+    border-radius: 50% 50% 50% 50%;
+  }
+  100%{
+    background-color: red;
+    left: 0px;
+    top: 0px;
+  }
+}

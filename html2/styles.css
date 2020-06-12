@@ -1,0 +1,54 @@
+div {
+  --imavar: peachpuff;
+  background-color: var(--imavar);
+}
+
+.imadiv {
+  background-color: peru;
+}
+
+#imanid {
+  background-color: firebrick;
+}
+
+.box {
+  height: 10rem;
+  width: 10rem;
+  background-color: blue;
+  position: relative;
+  animation-name: animate;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+
+@keyframes animate {
+  0% {
+    background-color: blue;
+    top: 0;
+    left: 0;
+  }
+  25% {
+    background-color: darken(blue, 25%);
+    top: 0;
+    left: 20rem;
+    border-radius: 20%;
+  }
+  50% {
+    background-color: darken(blue, 50%);
+    top: 20rem;
+    left: 20rem;
+    border-radius: 50%;
+  }
+  75% {
+    background-color: darken(blue, 25%);
+    top: 20rem;
+    left: 0rem;
+    border-radius: 20%;
+  }
+  100% {
+    background-color: blue;
+    top: 0;
+    left: 0;
+  }
+}

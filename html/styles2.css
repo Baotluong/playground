@@ -1,0 +1,8 @@
+div p{
+  background-color: yellowgreen;
+}
+
+.stick{
+  position: sticky;
+  top: 0;
+}
