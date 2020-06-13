@@ -1,4 +1,4 @@
-// Input: an array of unknown length, filled with numbers
+// Input: an array of unknown length, filled with integers
 // Output: Return 1 if there are three incrementing consequtive numbers. Return 0 if there is not.
 // Example: [4, 1, 2, 3] => 1
 
@@ -6,7 +6,7 @@ const triples = (array) => {
   // Write your code here
 }
 
-// Input: big: number, small: number, goal: number
+// Input: big: number, small: number, goal: number. Only positives.
 // Output: Return the amount of small bags required to meet the goal. Return -1 if goal is not possible.
 
 const smallbags = (big, small, goal) => {
@@ -19,5 +19,3 @@ const smallbags = (big, small, goal) => {
     Example: (5, 5, 9) => 4
   */
 }
-
-// You have 10 minutes.
