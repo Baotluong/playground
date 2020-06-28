@@ -27,6 +27,9 @@
 // }
 
 const smallbags = (big, small, goal) => {
+  const bigsNeeded = Math.min(Math.floor(goal / 5), big);
+  const left = goal - 5 * bigsNeeded;
+  return left > small ? - 1 : left;
 }
 
 console.log(smallbags(5, 5, 9));
