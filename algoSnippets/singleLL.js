@@ -81,7 +81,7 @@ class SingleLinkedList {
 
   set(index, value) {
     const foundNode = this.get(index);
-    if(foundNode) {
+    if (foundNode) {
       foundNode.value = value;
       return true;
     }
